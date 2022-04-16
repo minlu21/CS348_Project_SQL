@@ -1,6 +1,6 @@
 DROP PROCEDURE IF EXISTS sp_buyTicket;
 DELIMITER //  
-CREATE PROCEDURE sp_buyTicket(IN movieName VARCHAR(255), IN roomId INT, IN showDatetime DATETIME, IN seatNum INT, IN userId BIGINT)
+CREATE PROCEDURE sp_buyTicket(IN movieName VARCHAR(255), IN roomId INT, IN showDatetime DATETIME, IN seatNum INT, IN userId BIGINT, OUT exit_code INT)
 BEGIN
 
     DECLARE avail INT;
@@ -25,11 +25,16 @@ BEGIN
             UPDATE movie_showing ms
                 SET ms.num_avail_seats = ms.num_avail_seats - 1 
                 WHERE ms.room_id = roomId AND ms.movie_id = movieId AND ms.show_datetime = showDatetime;
+            SELECT 0 INTO exit_code;
+        ELSE
+            SELECT 1 INTO exit_code;
         END IF;
+    ELSE
+        SELECT 1 INTO exit_code;
     END IF;
 END //
 DELIMITER ;
 
--- call sp_buyTicket("Harry Potter and the Philosopher's Stone", 1, '2022-11-04 20:00:00', 15, 1);
--- call sp_buyTicket("Harry Potter and the Philosopher's Stone", 1, '2022-11-04 20:00:00', 15, 1);
--- call sp_buyTicket("Harry Potter and the Philosopher's Stone", 1, '2022-11-04 20:00:00', 2, 1);
+-- call sp_buyTicket("Harry Potter and the Philosopher's Stone", 1, '2022-11-04 20:00:00', 15, 1, @exit);
+-- call sp_buyTicket("Harry Potter and the Philosopher's Stone", 1, '2022-11-04 20:00:00', 15, 1, @exit);
+-- call sp_buyTicket("Harry Potter and the Philosopher's Stone", 1, '2022-11-04 20:00:00', 2, 1, @exit);

@@ -27,5 +27,5 @@ DELIMITER ;
 -- call sp_insertRowsIntoMovieShowing("Harry Potter and the Chamber of Secrets", 3, '2022-11-04 20:00:00', 6.99);
 -- call sp_insertRowsIntoMovieShowing("Harry Potter and the Chamber of Secrets", 4, '2022-11-04 20:00:00', 6.99);
 -- call sp_insertRowsIntoMovieShowing("The Avengers", 5, '2022-11-04 20:00:00', 7.99);
--- call sp_insertRowsIntoMovieShowing("Guardians of the Galaxy", 6, '2022-11-04 20:00:00', 7.99);
--- call sp_insertRowsIntoMovieShowing("Guardians of the Galaxy", 7, '2022-11-04 19:00:00', 8.99);
+-- call sp_insertRowsIntoMovieShowing("Guardians of the Galaxy", 6, '2022-11-07 20:00:00', 7.99);
+-- call sp_insertRowsIntoMovieShowing("Guardians of the Galaxy", 7, '2022-11-03 19:00:00', 8.99);

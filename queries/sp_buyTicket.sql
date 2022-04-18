@@ -6,19 +6,24 @@ BEGIN
     DECLARE avail INT;
     DECLARE insertPrice DOUBLE;
     DECLARE curr_time DATETIME;
-    DECLARE isAvail TINYINT(1) DEFAULT false; 
 
     SELECT NOW() INTO curr_time;
+    
+    SELECT num_avail_seats
+		INTO avail
+        FROM movie_showing ms
+        JOIN movie m ON ms.movie_id = m.movie_id
+        WHERE ms.room_id = roomId AND m.movie_id = movieId AND ms.show_datetime = showDatetime;
 
-    SELECT num_avail_seats, price
-        INTO avail, insertPrice
+    SELECT price	
+		INTO insertPrice
         FROM movie_showing ms
         JOIN movie m ON ms.movie_id = m.movie_id
         WHERE ms.room_id = roomId AND m.movie_id = movieId AND ms.show_datetime = showDatetime;
 
     IF avail > 0 THEN
         -- check if seat is available --
-        IF seatNum NOT IN(SELECT seat_num FROM ticket WHERE room_id = roomId) THEN
+        IF seatNum NOT IN(SELECT seat_num FROM ticket WHERE room_id = roomId AND movie_id = movieId AND show_datetime = showDatetime) THEN
             INSERT INTO ticket ( is_used, price, purchase_datetime, show_datetime, movie_id, room_id, seat_num, user_id )
                 VALUES ( 0, insertPrice, curr_time, showDatetime, movieId, roomId, seatNum, userId );
             UPDATE movie_showing ms
@@ -28,8 +33,8 @@ BEGIN
         ELSE
             SELECT 1 INTO exit_code;
         END IF;
-    ELSE
-        SELECT 1 INTO exit_code;
+	ELSE
+        SELECT 2 INTO exit_code;
     END IF;
     
 END //

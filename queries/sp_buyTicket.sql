@@ -29,6 +29,12 @@ BEGIN
             UPDATE movie_showing ms
                 SET ms.num_avail_seats = ms.num_avail_seats - 1 
                 WHERE ms.room_id = roomId AND ms.movie_id = movieId AND ms.show_datetime = showDatetime;
+            UPDATE movie m
+				SET m.num_tickets_sold = m.num_tickets_sold + 1
+                WHERE m.movie_id = movieId;
+			UPDATE movie m
+				SET m.total_ticket_earnings = m.total_ticket_earnings + price
+                WHERE m.movie_id = movieId;
             SELECT 0 INTO exit_code;
         ELSE
             SELECT 1 INTO exit_code;

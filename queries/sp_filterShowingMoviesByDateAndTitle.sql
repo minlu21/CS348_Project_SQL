@@ -14,64 +14,73 @@ BEGIN
     END IF;
     
     IF date2 IS NOT NULL THEN
-        SELECT CONCAT(LAST_DAY(CONCAT(2022, "-", date2, "-01")), " 23:59:59") INTO end_range;
+        SELECT CONCAT(2022, "-", date2, "-01 23:59:59") INTO end_range;
     END IF;
 
     IF title IS NOT NULL THEN
 
         IF date1 IS NOT NULL AND date2 IS NOT NULL THEN
-            SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime
+            SELECT m.movie_id, m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime, ms.room_id
                 FROM movie m 
                 JOIN movie_showing ms ON m.movie_id = ms.movie_id
                 WHERE ms.show_datetime BETWEEN start_range AND end_range
-                    AND m.name LIKE CONCAT("%",title,"%");
+                    AND m.name LIKE CONCAT("%",title,"%")
+				ORDER BY ms.show_datetime ASC;
 
         ELSEIF date1 IS NOT NULL THEN
-            SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime
+            SELECT m.movie_id, m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime, ms.room_id
                 FROM movie m 
                 JOIN movie_showing ms ON m.movie_id = ms.movie_id
                 WHERE ms.show_datetime >= start_range
-                    AND m.name LIKE CONCAT("%",title,"%");
+                    AND m.name LIKE CONCAT("%",title,"%")
+				ORDER BY ms.show_datetime ASC;
 
         ELSEIF date2 IS NOT NULL THEN
-            SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime
+            SELECT m.movie_id, m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime, ms.room_id
                 FROM movie m 
                 JOIN movie_showing ms ON m.movie_id = ms.movie_id
                 WHERE ms.show_datetime <= end_range
-                    AND m.name LIKE CONCAT("%",title,"%");
+                    AND m.name LIKE CONCAT("%",title,"%")
+				ORDER BY ms.show_datetime ASC;
 
         ELSE
-            SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime
+            SELECT m.movie_id, m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime, ms.room_id
                 FROM movie m 
                 JOIN movie_showing ms ON m.movie_id = ms.movie_id
-                WHERE m.name LIKE CONCAT("%",title,"%");
+                WHERE m.name LIKE CONCAT("%",title,"%")
+			ORDER BY ms.show_datetime ASC;
         
         END IF;
 
     ELSE
 
         IF date1 IS NOT NULL AND date2 IS NOT NULL THEN
-            SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime
+            SELECT m.movie_id, m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime, ms.room_id
                 FROM movie m 
                 JOIN movie_showing ms ON m.movie_id = ms.movie_id
-                WHERE ms.show_datetime BETWEEN start_range AND end_range;
+                WHERE ms.show_datetime BETWEEN start_range AND end_range
+				ORDER BY ms.show_datetime ASC;
+			
         ELSEIF date1 IS NOT NULL THEN
-            SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime
+            SELECT m.movie_id, m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime, ms.room_id
                 FROM movie m 
                 JOIN movie_showing ms ON m.movie_id = ms.movie_id
-                WHERE ms.show_datetime >= start_range;
+                WHERE ms.show_datetime >= start_range
+                ORDER BY ms.show_datetime ASC;
 
         ELSEIF date2 IS NOT NULL THEN
-            SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime
+            SELECT m.movie_id, m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime, ms.room_id
                 FROM movie m 
                 JOIN movie_showing ms ON m.movie_id = ms.movie_id
-                WHERE ms.show_datetime <= end_range;
+                WHERE ms.show_datetime <= end_range
+                ORDER BY ms.show_datetime ASC;
 
         ELSE
-            SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime
+            SELECT m.movie_id, m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type, ms.show_datetime, ms.room_id
                 FROM movie m 
-                JOIN movie_showing ms ON m.movie_id = ms.movie_id;
-        
+                JOIN movie_showing ms ON m.movie_id = ms.movie_id
+                ORDER BY ms.show_datetime ASC;
+                
         END IF;
 
     END IF;

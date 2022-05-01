@@ -14,12 +14,14 @@ BEGIN
             SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type
                 FROM movie m
                 WHERE m.production_Date BETWEEN start_range AND end_range
-                    AND m.name LIKE CONCAT("%",title,"%");
+                    AND m.name LIKE CONCAT("%",title,"%")
+				ORDER BY m.name;
 
         ELSE
             SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type
                 FROM movie m 
-                WHERE m.name LIKE CONCAT("%",title,"%");
+                WHERE m.name LIKE CONCAT("%",title,"%")
+                ORDER BY m.name;
         
         END IF;
 
@@ -28,11 +30,13 @@ BEGIN
         IF year1 IS NOT NULL THEN
             SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type
                 FROM movie m 
-                WHERE m.production_date BETWEEN start_range AND end_range;
+                WHERE m.production_date BETWEEN start_range AND end_range
+                ORDER BY m.name;
 
         ELSE
             SELECT m.name, m.production_date, m.mpaa_rating, m.movie_length_in_mins, m.movie_poster_url, m.summary, m.visual_type
-                FROM movie m;
+                FROM movie m
+                ORDER BY m.name;
         
         END IF;
 

@@ -1,6 +1,6 @@
 DROP PROCEDURE IF EXISTS sp_filterShowingMoviesByDateAndTitle;
 DELIMITER //  
-CREATE PROCEDURE sp_filterShowingMoviesByDateAndTitleTicket(IN date1 VARCHAR(5), IN date2 VARCHAR(5), IN title VARCHAR(255))
+CREATE PROCEDURE sp_filterShowingMoviesByDateAndTitle(IN date1 VARCHAR(5), IN date2 VARCHAR(5), IN title VARCHAR(255))
 BEGIN
 
     DECLARE curr_year VARCHAR(10);

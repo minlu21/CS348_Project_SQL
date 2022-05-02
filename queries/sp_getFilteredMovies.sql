@@ -1,11 +1,14 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_getFilteredMovies`(IN year1 VARCHAR(5), IN title VARCHAR(255))
+DROP PROCEDURE IF EXISTS sp_getFilteredMovies;
+DEFINER=`root`@`localhost` 
+DELIMITER //
+CREATE PROCEDURE `sp_getFilteredMovies`(IN year1 VARCHAR(5), IN title VARCHAR(255))
 BEGIN
     DECLARE start_range DATETIME;
     DECLARE end_range DATETIME;
     
     IF year1 IS NOT NULL THEN
         SELECT CONCAT(year1, "-", "01", "-", "01 00:00:00") INTO start_range;
-		SELECT CONCAT(year1, "-", "12", "-", "31 23:59:59") INTO end_range;
+		SELECT CONCAT(year1, '-', '12', '-', '31 23:59:59') INTO end_range;
     END IF;
 
     IF title IS NOT NULL THEN

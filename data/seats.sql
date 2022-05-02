@@ -11,3 +11,11 @@ BEGIN
 
 END //
 DELIMITER ;
+
+-- call sp_insertRowsIntoSeats(1);
+-- call sp_insertRowsIntoSeats(2);
+-- call sp_insertRowsIntoSeats(3);
+-- call sp_insertRowsIntoSeats(4);
+-- call sp_insertRowsIntoSeats(5);
+-- call sp_insertRowsIntoSeats(6);
+-- call sp_insertRowsIntoSeats(7);

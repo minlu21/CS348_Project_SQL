@@ -2,8 +2,6 @@ DROP PROCEDURE IF EXISTS sp_insertRowsIntoMovieShowing;
 DELIMITER //  
 CREATE PROCEDURE sp_insertRowsIntoMovieShowing(IN movieId BIGINT, IN roomId INT, IN showDatetime DATETIME, IN newPrice DOUBLE)
 BEGIN
-
-    --Get Movie ID, show_length from Movie Name--
     DECLARE showLength, numAvailSeats INT;
     SELECT movie_length_in_mins
         INTO showLength

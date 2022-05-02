@@ -1,4 +1,4 @@
-DROP PROCEDURE IF EXISTS sp_getMoviebyId;
+DROP PROCEDURE IF EXISTS sp_getMovieById;
 DEFINER=`root`@`localhost` 
 DELIMITER //
 CREATE PROCEDURE `sp_getMovieById`(IN movieId BIGINT)
